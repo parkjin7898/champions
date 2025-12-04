@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080/api/champions',
+    baseURL: 'https://w25-lol-backend.onrender.com/api/champions',
 });
 
 export const getChampions = async () => {
