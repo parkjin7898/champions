@@ -114,7 +114,7 @@ const ChampionList = () => {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-4 md:gap-6">
                     {sortedChampions.map((champion) => {
                         return (
-                            <Link key={champion.id} to={`/champions/${champion.englishName}`} className="group">
+                            <Link key={champion.id} to={`/${champion.englishName}`} className="group">
                                 <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700 hover:border-yellow-400">
                                     <div className="relative aspect-square overflow-hidden">
                                         <img
