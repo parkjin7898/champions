@@ -15,7 +15,6 @@ const ChampionDetail = () => {
 
     if (!champion) return <div className="text-center text-white mt-10">챔피언을 찾을 수 없습니다.</div>;
 
-    // Calculate difficulty stars (1-10 scale)
     const renderStars = (difficulty) => {
         const stars = [];
         for (let i = 1; i <= 10; i++) {
@@ -28,16 +27,11 @@ const ChampionDetail = () => {
         return stars;
     };
 
-    // Radar Chart Component
     const RadarChart = ({ attack, defense, magic }) => {
-        // Normalize values to 0-100 for SVG coordinates
-        // Max value is usually 10, so scale by 10
         const scale = 10;
         const center = 50;
-        const radius = 30; // Reduced radius to fit labels
+        const radius = 30;
 
-        // Calculate points (Top: Attack, Bottom Right: Magic, Bottom Left: Defense)
-        // Angles: -90 (Top), 30 (Bottom Right), 150 (Bottom Left)
         const getPoint = (value, angle) => {
             const r = (value / 10) * radius;
             const x = center + r * Math.cos((angle * Math.PI) / 180);

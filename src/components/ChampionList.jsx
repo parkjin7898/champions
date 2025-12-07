@@ -27,7 +27,6 @@ const ChampionList = () => {
         if (sortBy === 'name') {
             return [...filtered].sort((a, b) => a.name.localeCompare(b.name));
         } else if (sortBy === 'tag') {
-            // Group by primary tag
             const grouped = {};
             filtered.forEach(champion => {
                 const tag = champion.tags && champion.tags[0] ? champion.tags[0] : '기타';
@@ -35,12 +34,10 @@ const ChampionList = () => {
                 grouped[tag].push(champion);
             });
 
-            // Sort champions within groups by name
             Object.keys(grouped).forEach(tag => {
                 grouped[tag].sort((a, b) => a.name.localeCompare(b.name));
             });
 
-            // Sort keys (tags) alphabetically
             const sortedKeys = Object.keys(grouped).sort();
             const sortedGrouped = {};
             sortedKeys.forEach(key => {
@@ -94,7 +91,7 @@ const ChampionList = () => {
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-4 md:gap-6">
                             {championsInTag.map((champion) => {
                                 return (
-                                    <Link key={champion.id} to={`/champions/${champion.englishName}`} className="group">
+                                    <Link key={champion.id} to={`/${champion.englishName}`} className="group">
                                         <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700 hover:border-yellow-400">
                                             <div className="relative aspect-square overflow-hidden">
                                                 <img

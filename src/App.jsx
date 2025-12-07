@@ -8,7 +8,7 @@ function App() {
     <div className="min-h-screen bg-gray-900 text-gray-100 font-sans">
       <Routes>
         <Route path="/" element={<ChampionList />} />
-        <Route path="/champions/:englishName" element={<ChampionDetail />} />
+        <Route path="/:englishName" element={<ChampionDetail />} />
       </Routes>
     </div>
   );
