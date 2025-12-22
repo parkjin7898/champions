@@ -95,7 +95,7 @@ const ChampionList = () => {
                                         <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700 hover:border-yellow-400">
                                             <div className="relative aspect-square overflow-hidden">
                                                 <img
-                                                    src={`https://ddragon.leagueoflegends.com/cdn/14.23.1/img/champion/${champion.image.full}`}
+                                                    src={`${champion.image.url}`}
                                                     alt={champion.name}
                                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                                                 />
@@ -118,7 +118,7 @@ const ChampionList = () => {
                                 <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700 hover:border-yellow-400">
                                     <div className="relative aspect-square overflow-hidden">
                                         <img
-                                            src={`https://ddragon.leagueoflegends.com/cdn/14.23.1/img/champion/${champion.image.full}`}
+                                            src={`${champion.image.url}`}
                                             alt={champion.name}
                                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                                         />

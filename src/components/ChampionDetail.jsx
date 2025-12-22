@@ -75,11 +75,11 @@ const ChampionDetail = () => {
                 <div className="flex flex-col items-center pt-10 pb-6 bg-gradient-to-b from-gray-800 to-gray-900">
                     <div className="w-64 h-auto rounded-xl overflow-hidden shadow-2xl border-2 border-yellow-500/30 mb-6">
                         <img
-                            src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${englishName}_0.jpg`}
+                            src={`${champion.image.loadingImageUrl}`}
                             alt={champion.name}
                             className="w-full h-full object-cover"
                             onError={(e) => {
-                                e.target.src = `https://ddragon.leagueoflegends.com/cdn/14.23.1/img/champion/${champion.image.full}`;
+                                e.target.src = `${champion.image.url}`;
                             }}
                         />
                     </div>
