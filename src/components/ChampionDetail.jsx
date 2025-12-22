@@ -4,17 +4,21 @@ import { useQuery } from '@tanstack/react-query';
 import { getChampionDetail } from '../api/champions';
 
 const ChampionDetail = () => {
+    // URL 파라미터로 영문명 획득
     const { englishName } = useParams();
+
+    // TanStack Query를 사용한 챔피언 데이터 Fetching
     const { data: champion, isLoading, error } = useQuery({
         queryKey: ['champion', englishName],
         queryFn: () => getChampionDetail(englishName),
     });
 
+    // 로딩 중, 에러, 데이터 없음 상태 처리
     if (isLoading) return <div className="text-center text-white mt-10">로딩 중...</div>;
     if (error) return <div className="text-center text-red-500 mt-10">에러 발생: {error.message}</div>;
-
     if (!champion) return <div className="text-center text-white mt-10">챔피언을 찾을 수 없습니다.</div>;
 
+    // 별점 렌더링 함수
     const renderStars = (difficulty) => {
         const stars = [];
         for (let i = 1; i <= 10; i++) {
@@ -27,6 +31,7 @@ const ChampionDetail = () => {
         return stars;
     };
 
+    // 레이더 차트 컴포넌트
     const RadarChart = ({ attack, defense, magic }) => {
         const scale = 10;
         const center = 50;
@@ -43,6 +48,7 @@ const ChampionDetail = () => {
         const p2 = getPoint(magic, 30);
         const p3 = getPoint(defense, 150);
 
+        // 삼각형 좌표 계산 로직
         return (
             <div className="relative w-48 h-48 mx-auto">
                 <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-xl">
@@ -64,6 +70,7 @@ const ChampionDetail = () => {
         );
     };
 
+    // 챔피언 상세 정보 렌더링
     return (
         <div className="container mx-auto p-4 text-white max-w-5xl">
             <Link to="/" className="inline-block mb-6 px-6 py-2 bg-gray-800 hover:bg-gray-700 rounded-full text-sm font-bold transition-colors border border-gray-700">
@@ -71,7 +78,8 @@ const ChampionDetail = () => {
             </Link>
 
             <div className="bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-gray-800">
-                {/* Top Section: Portrait & Basic Info */}
+                {/* 상단 섹션: DB의 loadingImageUrl 사용 */}
+                {/* 이미지 로딩 실패 시 기본 이미지로 대체 */}
                 <div className="flex flex-col items-center pt-10 pb-6 bg-gradient-to-b from-gray-800 to-gray-900">
                     <div className="w-64 h-auto rounded-xl overflow-hidden shadow-2xl border-2 border-yellow-500/30 mb-6">
                         <img
@@ -98,7 +106,7 @@ const ChampionDetail = () => {
                 </div>
 
                 <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-12">
-                    {/* Left Column: Stats & Graph */}
+                    {/* 좌측 섹션: 스탯 정보 및 차트 */}
                     <div className="space-y-8">
                         <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
                             <h3 className="text-xl font-bold mb-6 text-center text-gray-200">능력치 분석</h3>
@@ -115,6 +123,7 @@ const ChampionDetail = () => {
                             </div>
                         </div>
 
+                        {/* 상세 스탯 정보들 */}
                         <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
                             <h3 className="text-xl font-bold mb-4 text-gray-200">상세 스탯</h3>
                             <div className="grid grid-cols-2 gap-y-4 gap-x-8 text-sm">
@@ -154,7 +163,7 @@ const ChampionDetail = () => {
                         </div>
                     </div>
 
-                    {/* Right Column: Lore */}
+                    {/* 배경 이야기 */}
                     <div className="flex flex-col justify-center">
                         <h3 className="text-2xl font-bold mb-6 text-yellow-400 border-l-4 border-yellow-500 pl-4">배경 이야기</h3>
                         <p className="text-gray-300 text-lg leading-loose font-light tracking-wide">

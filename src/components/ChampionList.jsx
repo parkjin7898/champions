@@ -4,17 +4,21 @@ import { getChampions } from '../api/champions';
 import { Link } from 'react-router-dom';
 
 const ChampionList = () => {
+    // 검색어 및 정렬 기준 상태 관리
     const [sortBy, setSortBy] = React.useState('name');
     const [searchTerm, setSearchTerm] = React.useState('');
 
+    // TanStack Query를 사용한 비동기 데이터 Fetching
     const { data: champions, isLoading, error } = useQuery({
         queryKey: ['champions'],
         queryFn: getChampions,
     });
 
+    // useMemo를 사용하여 필터링 및 정렬 연산 최적화
     const sortedChampions = React.useMemo(() => {
         if (!champions) return [];
 
+        // 1. 검색어 필터링 (한글 이름 또는 영문 이름)
         let filtered = champions;
         if (searchTerm) {
             const lowerTerm = searchTerm.toLowerCase();
@@ -24,9 +28,11 @@ const ChampionList = () => {
             );
         }
 
+        // 2. 정렬 로직 (이름순 vs 태그/역할군순)
         if (sortBy === 'name') {
             return [...filtered].sort((a, b) => a.name.localeCompare(b.name));
         } else if (sortBy === 'tag') {
+            // 태그별 그룹화 로직 구현
             const grouped = {};
             filtered.forEach(champion => {
                 const tag = champion.tags && champion.tags[0] ? champion.tags[0] : '기타';
@@ -34,6 +40,7 @@ const ChampionList = () => {
                 grouped[tag].push(champion);
             });
 
+            // 그룹 정렬 로직
             Object.keys(grouped).forEach(tag => {
                 grouped[tag].sort((a, b) => a.name.localeCompare(b.name));
             });
@@ -52,10 +59,12 @@ const ChampionList = () => {
     if (isLoading) return <div className="text-center text-white mt-10">로딩 중...</div>;
     if (error) return <div className="text-center text-red-500 mt-10">에러 발생: {error.message}</div>;
 
+    // JSX 렌더링 부분 (Grid Layout, Image URL 바인딩)
     return (
         <div className="w-full px-4 md:px-8 lg:px-12 py-8">
             <h1 className="text-4xl font-bold text-center text-gold-500 mb-10 text-yellow-400 tracking-wider">리그 오브 레전드 챔피언</h1>
 
+            {/* 검색창 및 필터 버튼 UI */}
             <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
                 <div className="w-full md:w-1/2 lg:w-1/3">
                     <input
@@ -82,6 +91,7 @@ const ChampionList = () => {
                 </div>
             </div>
 
+            {/* 태그별 그룹화된 챔피언 목록 */}
             {sortBy === 'tag' ? (
                 Object.entries(sortedChampions).map(([tag, championsInTag]) => (
                     <div key={tag} className="mb-12">
